@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Google-specific colors
+				'google-blue': '#4285f4',
+				'google-red': '#ea4335',
+				'google-yellow': '#fbbc05',
+				'google-green': '#34a853',
+				'google-gray': '#5f6368',
+				'google-text': '#202124',
+				'google-border': '#dadce0',
+				'google-button': '#f8f9fa',
+				'google-button-text': '#3c4043',
+				'google-button-border': '#f8f9fa',
+				'google-button-border-hover': '#dadce0',
+				'google-footer': '#f2f2f2',
+				'google-footer-text': '#70757a'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -89,6 +104,12 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
+			},
+			boxShadow: {
+				'google': '0 2px 5px 1px rgba(64,60,67,.16)',
+				'google-hover': '0 2px 8px 1px rgba(64,60,67,.24)',
+				'google-focused': '0 2px 8px 1px rgba(64,60,67,.24)',
+				'google-button-hover': '0 1px 1px rgba(0,0,0,.1)'
 			}
 		}
 	},
