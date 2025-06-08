@@ -11,16 +11,16 @@ const VoiceSearchIndicator = ({ isListening }: VoiceSearchIndicatorProps) => {
   }
 
   return (
-    <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-lg shadow-lg mt-1 p-4 text-center z-50">
+    <div className="absolute top-full left-0 right-0 bg-white border border-google-border rounded-lg shadow-google mt-1 p-4 text-center z-50">
       <div className="flex items-center justify-center space-x-3">
         <div className="flex space-x-1">
-          <div className="w-2 h-2 bg-destructive rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-          <div className="w-2 h-2 bg-destructive rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-          <div className="w-2 h-2 bg-destructive rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+          <div className="w-2 h-2 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+          <div className="w-2 h-2 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+          <div className="w-2 h-2 bg-red-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
         </div>
-        <span className="text-foreground font-medium">Listening...</span>
+        <span className="text-google-text font-medium">Listening...</span>
       </div>
-      <p className="text-sm text-muted-foreground mt-2">Speak now or wait for simulation</p>
+      <p className="text-sm text-google-gray mt-2">Speak now or wait for simulation</p>
     </div>
   );
 };

@@ -22,18 +22,18 @@ const SearchSuggestions = ({
   }
 
   return (
-    <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-lg shadow-lg mt-1 z-50 overflow-hidden">
+    <div className="absolute top-full left-0 right-0 bg-white border border-google-border rounded-lg shadow-google mt-1 z-50 overflow-hidden">
       {suggestions.map((suggestion, index) => (
         <button
           key={index}
           type="button"
-          className={`w-full text-left px-4 py-3 hover:bg-accent transition-colors duration-150 flex items-center space-x-3 ${
-            selectedSuggestion === index ? 'bg-accent' : ''
+          className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors duration-150 flex items-center space-x-3 ${
+            selectedSuggestion === index ? 'bg-gray-50' : ''
           }`}
           onClick={() => onSuggestionClick(suggestion)}
         >
-          <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-          <span className="text-foreground">{suggestion}</span>
+          <Search className="w-4 h-4 text-google-gray flex-shrink-0" />
+          <span className="text-google-text">{suggestion}</span>
         </button>
       ))}
     </div>

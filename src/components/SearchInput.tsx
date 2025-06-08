@@ -29,11 +29,11 @@ const SearchInput = ({
 }: SearchInputProps) => {
   return (
     <div className={`relative transition-all duration-200 ${
-      isFocused ? 'shadow-lg scale-[1.02]' : 'shadow-md hover:shadow-lg'
+      isFocused ? 'shadow-google-focused' : 'shadow-google hover:shadow-google-hover'
     }`}>
-      <div className="flex items-center bg-background rounded-full border border-border hover:border-ring transition-colors duration-200">
+      <div className="flex items-center bg-white rounded-full border border-google-border hover:border-google-border-hover transition-colors duration-200">
         <div className="flex items-center justify-center w-12 h-12 pl-4">
-          <Search className="w-5 h-5 text-muted-foreground" />
+          <Search className="w-5 h-5 text-google-gray" />
         </div>
         
         <input
@@ -44,7 +44,7 @@ const SearchInput = ({
           onFocus={onFocus}
           onBlur={onBlur}
           onKeyDown={onKeyDown}
-          className="flex-1 h-12 bg-transparent outline-none text-foreground text-base placeholder:text-muted-foreground"
+          className="flex-1 h-12 bg-transparent outline-none text-google-text text-base placeholder:text-google-gray"
           autoComplete="off"
           spellCheck="false"
           aria-label="Search"
@@ -56,10 +56,10 @@ const SearchInput = ({
           <button
             type="button"
             onClick={onClear}
-            className="p-2 hover:bg-accent rounded-full transition-colors duration-150"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-150"
             aria-label="Clear search"
           >
-            <X className="w-4 h-4 text-muted-foreground" />
+            <X className="w-4 h-4 text-google-gray" />
           </button>
         )}
         
@@ -68,19 +68,19 @@ const SearchInput = ({
             type="button"
             onClick={onVoiceSearch}
             disabled={isListening}
-            className={`p-2 hover:bg-accent rounded-full transition-all duration-150 ${
-              isListening ? 'bg-destructive/10 animate-pulse' : ''
+            className={`p-2 hover:bg-gray-100 rounded-full transition-all duration-150 ${
+              isListening ? 'bg-red-50 animate-pulse' : ''
             }`}
             aria-label={isListening ? "Listening..." : "Search by voice"}
           >
-            <Mic className={`w-5 h-5 ${isListening ? 'text-destructive' : 'text-muted-foreground'}`} />
+            <Mic className={`w-5 h-5 ${isListening ? 'text-red-500' : 'text-google-blue'}`} />
           </button>
           <button 
             type="button"
-            className="p-2 hover:bg-accent rounded-full transition-colors duration-150"
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-150"
             aria-label="Search by image"
           >
-            <Camera className="w-5 h-5 text-muted-foreground" />
+            <Camera className="w-5 h-5 text-google-blue" />
           </button>
         </div>
       </div>

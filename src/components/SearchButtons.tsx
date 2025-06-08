@@ -34,14 +34,14 @@ const SearchButtons = ({ value, onSearch, onLuckySearch }: SearchButtonsProps) =
       <button
         type="button"
         onClick={() => onSearch(value)}
-        className="px-6 py-3 bg-muted text-muted-foreground text-sm rounded-md border border-border hover:bg-accent hover:text-accent-foreground hover:shadow-md transition-all duration-150 transform hover:scale-[1.02] w-full sm:w-auto font-medium"
+        className="px-4 py-3 bg-google-button text-google-button-text text-sm rounded border border-google-button-border hover:bg-white hover:border-google-button-border-hover hover:shadow-google-button-hover transition-all duration-150 w-full sm:w-auto min-w-[140px]"
       >
         Google Search
       </button>
       <button
         type="button"
         onClick={onLuckySearch}
-        className="px-6 py-3 bg-muted text-muted-foreground text-sm rounded-md border border-border hover:bg-accent hover:text-accent-foreground hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] min-w-[140px] w-full sm:w-auto font-medium"
+        className="px-4 py-3 bg-google-button text-google-button-text text-sm rounded border border-google-button-border hover:bg-white hover:border-google-button-border-hover hover:shadow-google-button-hover transition-all duration-300 min-w-[140px] w-full sm:w-auto"
       >
         <span className="transition-all duration-300">{luckyText}</span>
       </button>
