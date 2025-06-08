@@ -133,9 +133,9 @@ const EnhancedSearchBar = ({ value, onChange, onSearch, onLuckySearch }: SearchB
       <div className="relative w-full max-w-xl">
         <form onSubmit={handleSubmit}>
           <div className={`relative transition-all duration-200 ${
-            isFocused ? 'shadow-lg scale-105' : 'shadow-md hover:shadow-lg'
+            isFocused ? 'shadow-lg scale-[1.02]' : 'shadow-md hover:shadow-lg'
           }`}>
-            <div className="flex items-center bg-background rounded-full border border-border">
+            <div className="flex items-center bg-background rounded-full border border-border hover:border-ring transition-colors duration-200">
               <div className="flex items-center justify-center w-12 h-12 pl-4">
                 <Search className="w-5 h-5 text-muted-foreground" />
               </div>
@@ -244,14 +244,14 @@ const EnhancedSearchBar = ({ value, onChange, onSearch, onLuckySearch }: SearchB
         <button
           type="button"
           onClick={() => onSearch(value)}
-          className="px-6 py-3 bg-secondary text-secondary-foreground text-sm rounded border border-border hover:bg-secondary/80 hover:shadow-md transition-all duration-150 transform hover:scale-105 w-full sm:w-auto"
+          className="px-6 py-3 bg-muted text-muted-foreground text-sm rounded-md border border-border hover:bg-accent hover:text-accent-foreground hover:shadow-md transition-all duration-150 transform hover:scale-[1.02] w-full sm:w-auto font-medium"
         >
           Google Search
         </button>
         <button
           type="button"
           onClick={onLuckySearch}
-          className="px-6 py-3 bg-secondary text-secondary-foreground text-sm rounded border border-border hover:bg-secondary/80 hover:shadow-md transition-all duration-300 transform hover:scale-105 min-w-[140px] w-full sm:w-auto"
+          className="px-6 py-3 bg-muted text-muted-foreground text-sm rounded-md border border-border hover:bg-accent hover:text-accent-foreground hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] min-w-[140px] w-full sm:w-auto font-medium"
         >
           <span className="transition-all duration-300">{luckyText}</span>
         </button>
