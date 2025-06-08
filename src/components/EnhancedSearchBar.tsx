@@ -83,18 +83,26 @@ const EnhancedSearchBar = ({ value, onChange, onSearch, onLuckySearch }: SearchB
   };
 
   const handleVoiceSearch = () => {
+    console.log('Voice search initiated');
     setIsListening(true);
-    // Simulate voice search
+    setShowSuggestions(false); // Hide suggestions during voice search
+    
+    // Simulate voice search with better feedback
     setTimeout(() => {
       const phrases = [
         'What is the weather like today?',
         'How to make chocolate cake',
         'Best programming languages 2024',
-        'Funny cat videos'
+        'Funny cat videos',
+        'React tutorial for beginners',
+        'Latest tech news'
       ];
       const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+      console.log('Voice search result:', randomPhrase);
       onChange(randomPhrase);
       setIsListening(false);
+      // Auto-focus input after voice search
+      inputRef.current?.focus();
     }, 2000);
   };
 
@@ -121,80 +129,86 @@ const EnhancedSearchBar = ({ value, onChange, onSearch, onLuckySearch }: SearchB
 
   return (
     <div className="w-full flex flex-col items-center space-y-8 relative">
-      {/* Search Input */}
+      {/* Search Input Container */}
       <div className="relative w-full max-w-xl">
-        <div className={`relative transition-all duration-200 ${
-          isFocused ? 'shadow-google-focused scale-105' : 'shadow-google hover:shadow-google-hover'
-        }`}>
-          <div className="flex items-center bg-white rounded-full border border-google-border">
-            <div className="flex items-center justify-center w-12 h-12 pl-4">
-              <Search className="w-5 h-5 text-google-gray" />
-            </div>
-            
-            <input
-              ref={inputRef}
-              type="text"
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              onFocus={() => {
-                setIsFocused(true);
-                if (value.length > 0) setShowSuggestions(true);
-              }}
-              onBlur={() => {
-                setIsFocused(false);
-                setTimeout(() => setShowSuggestions(false), 200);
-              }}
-              onKeyDown={handleKeyDown}
-              className="flex-1 h-12 bg-transparent outline-none text-google-text text-base"
-              autoComplete="off"
-              spellCheck="false"
-              aria-label="Search"
-              placeholder="Search Google or type a URL"
-            />
-            
-            {value && (
-              <button
-                onClick={() => {
-                  onChange('');
-                  inputRef.current?.focus();
+        <form onSubmit={handleSubmit}>
+          <div className={`relative transition-all duration-200 ${
+            isFocused ? 'shadow-lg scale-105' : 'shadow-md hover:shadow-lg'
+          }`}>
+            <div className="flex items-center bg-background rounded-full border border-border">
+              <div className="flex items-center justify-center w-12 h-12 pl-4">
+                <Search className="w-5 h-5 text-muted-foreground" />
+              </div>
+              
+              <input
+                ref={inputRef}
+                type="text"
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                onFocus={() => {
+                  setIsFocused(true);
+                  if (value.length > 0) setShowSuggestions(true);
                 }}
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-150"
-                aria-label="Clear search"
-              >
-                <X className="w-4 h-4 text-google-gray" />
-              </button>
-            )}
-            
-            <div className="flex items-center pr-4 space-x-3">
-              <button 
-                type="button"
-                onClick={handleVoiceSearch}
-                className={`p-2 hover:bg-gray-100 rounded-full transition-all duration-150 ${
-                  isListening ? 'bg-red-100 animate-pulse' : ''
-                }`}
-                aria-label="Search by voice"
-              >
-                <Mic className={`w-5 h-5 ${isListening ? 'text-red-500' : 'text-google-gray'}`} />
-              </button>
-              <button 
-                type="button"
-                className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-150"
-                aria-label="Search by image"
-              >
-                <Camera className="w-5 h-5 text-google-gray" />
-              </button>
+                onBlur={() => {
+                  setIsFocused(false);
+                  setTimeout(() => setShowSuggestions(false), 200);
+                }}
+                onKeyDown={handleKeyDown}
+                className="flex-1 h-12 bg-transparent outline-none text-foreground text-base placeholder:text-muted-foreground"
+                autoComplete="off"
+                spellCheck="false"
+                aria-label="Search"
+                placeholder="Search Google or type a URL"
+                disabled={isListening}
+              />
+              
+              {value && !isListening && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange('');
+                    inputRef.current?.focus();
+                  }}
+                  className="p-2 hover:bg-accent rounded-full transition-colors duration-150"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4 text-muted-foreground" />
+                </button>
+              )}
+              
+              <div className="flex items-center pr-3 space-x-2">
+                <button 
+                  type="button"
+                  onClick={handleVoiceSearch}
+                  disabled={isListening}
+                  className={`p-2 hover:bg-accent rounded-full transition-all duration-150 ${
+                    isListening ? 'bg-destructive/10 animate-pulse' : ''
+                  }`}
+                  aria-label={isListening ? "Listening..." : "Search by voice"}
+                >
+                  <Mic className={`w-5 h-5 ${isListening ? 'text-destructive' : 'text-muted-foreground'}`} />
+                </button>
+                <button 
+                  type="button"
+                  className="p-2 hover:bg-accent rounded-full transition-colors duration-150"
+                  aria-label="Search by image"
+                >
+                  <Camera className="w-5 h-5 text-muted-foreground" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
 
-        {/* Search Suggestions */}
-        {showSuggestions && suggestions.length > 0 && (
-          <div className="absolute top-full left-0 right-0 bg-white border border-google-border rounded-lg shadow-lg mt-1 z-50 overflow-hidden">
+        {/* Search Suggestions - Fixed positioning */}
+        {showSuggestions && suggestions.length > 0 && !isListening && (
+          <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-lg shadow-lg mt-1 z-50 overflow-hidden">
             {suggestions.map((suggestion, index) => (
               <button
                 key={index}
-                className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors duration-150 flex items-center space-x-3 ${
-                  selectedSuggestion === index ? 'bg-gray-50' : ''
+                type="button"
+                className={`w-full text-left px-4 py-3 hover:bg-accent transition-colors duration-150 flex items-center space-x-3 ${
+                  selectedSuggestion === index ? 'bg-accent' : ''
                 }`}
                 onClick={() => {
                   onChange(suggestion);
@@ -202,35 +216,42 @@ const EnhancedSearchBar = ({ value, onChange, onSearch, onLuckySearch }: SearchB
                   setShowSuggestions(false);
                 }}
               >
-                <Search className="w-4 h-4 text-google-gray" />
-                <span className="text-google-text">{suggestion}</span>
+                <Search className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                <span className="text-foreground">{suggestion}</span>
               </button>
             ))}
           </div>
         )}
 
-        {/* Voice Search Indicator */}
+        {/* Voice Search Indicator - Improved positioning */}
         {isListening && (
-          <div className="absolute top-full left-0 right-0 bg-white border border-google-border rounded-lg shadow-lg mt-1 p-4 text-center">
-            <div className="flex items-center justify-center space-x-2">
-              <Mic className="w-5 h-5 text-red-500 animate-pulse" />
-              <span className="text-google-text">Listening...</span>
+          <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-lg shadow-lg mt-1 p-4 text-center z-50">
+            <div className="flex items-center justify-center space-x-3">
+              <div className="flex space-x-1">
+                <div className="w-2 h-2 bg-destructive rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                <div className="w-2 h-2 bg-destructive rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                <div className="w-2 h-2 bg-destructive rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+              </div>
+              <span className="text-foreground font-medium">Listening...</span>
             </div>
+            <p className="text-sm text-muted-foreground mt-2">Speak now or wait for simulation</p>
           </div>
         )}
       </div>
       
-      {/* Action Buttons */}
-      <div className="flex space-x-4">
+      {/* Action Buttons - Better spacing */}
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto items-center">
         <button
+          type="button"
           onClick={() => onSearch(value)}
-          className="px-6 py-3 bg-google-button text-google-button-text text-sm rounded border border-google-button-border hover:shadow-google-button-hover hover:border-google-button-border-hover transition-all duration-100 transform hover:scale-105"
+          className="px-6 py-3 bg-secondary text-secondary-foreground text-sm rounded border border-border hover:bg-secondary/80 hover:shadow-md transition-all duration-150 transform hover:scale-105 w-full sm:w-auto"
         >
           Google Search
         </button>
         <button
+          type="button"
           onClick={onLuckySearch}
-          className="px-6 py-3 bg-google-button text-google-button-text text-sm rounded border border-google-button-border hover:shadow-google-button-hover hover:border-google-button-border-hover transition-all duration-300 transform hover:scale-105 min-w-[140px]"
+          className="px-6 py-3 bg-secondary text-secondary-foreground text-sm rounded border border-border hover:bg-secondary/80 hover:shadow-md transition-all duration-300 transform hover:scale-105 min-w-[140px] w-full sm:w-auto"
         >
           <span className="transition-all duration-300">{luckyText}</span>
         </button>
