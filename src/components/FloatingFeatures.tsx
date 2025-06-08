@@ -10,7 +10,7 @@ const FloatingFeatures = () => {
   const themes = [
     { name: 'Default', value: 'default' as const, color: 'bg-primary' },
     { name: 'Dark', value: 'dark' as const, color: 'bg-foreground' },
-    { name: 'Colorful', value: 'colorful' as const, color: 'bg-gradient-to-r from-purple-500 to-pink-500' },
+    { name: 'Colorful', value: 'colorful' as const, color: 'bg-gradient-to-r from-google-red to-google-yellow' },
   ];
 
   const easterEggs = [
@@ -67,7 +67,7 @@ const FloatingFeatures = () => {
           {/* Easter Egg Tip */}
           <div className="mb-4 p-3 bg-accent rounded-lg">
             <div className="flex items-center space-x-2 mb-2">
-              <Sparkles className="w-4 h-4 text-yellow-600" />
+              <Sparkles className="w-4 h-4 text-google-yellow" />
               <span className="text-sm font-medium text-accent-foreground">Pro Tip</span>
             </div>
             <p className="text-xs text-muted-foreground">{easterEggs[currentEasterEgg]}</p>
@@ -82,11 +82,11 @@ const FloatingFeatures = () => {
           {/* Quick Actions */}
           <div className="space-y-2">
             <button className="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-accent transition-colors">
-              <Heart className="w-4 h-4 text-red-500" />
+              <Heart className="w-4 h-4 text-google-red" />
               <span className="text-sm text-foreground">Favorites</span>
             </button>
             <button className="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-accent transition-colors">
-              <Star className="w-4 h-4 text-yellow-500" />
+              <Star className="w-4 h-4 text-google-yellow" />
               <span className="text-sm text-foreground">Bookmarks</span>
             </button>
           </div>
