@@ -1,15 +1,16 @@
 
 import React, { useState } from 'react';
 import { Settings, Heart, Star, Sparkles } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 
 const FloatingFeatures = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [theme, setTheme] = useState('default');
+  const { theme, setTheme } = useTheme();
 
   const themes = [
-    { name: 'Default', value: 'default', color: 'bg-blue-500' },
-    { name: 'Dark', value: 'dark', color: 'bg-gray-800' },
-    { name: 'Colorful', value: 'colorful', color: 'bg-gradient-to-r from-purple-500 to-pink-500' },
+    { name: 'Default', value: 'default' as const, color: 'bg-blue-500' },
+    { name: 'Dark', value: 'dark' as const, color: 'bg-gray-800' },
+    { name: 'Colorful', value: 'colorful' as const, color: 'bg-gradient-to-r from-purple-500 to-pink-500' },
   ];
 
   const easterEggs = [
@@ -36,19 +37,19 @@ const FloatingFeatures = () => {
       <div className={`absolute bottom-16 right-0 transition-all duration-300 ${
         isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}>
-        <div className="bg-white rounded-lg shadow-xl p-4 w-64 border border-gray-200">
-          <h3 className="font-semibold text-gray-800 mb-3">Google Features</h3>
+        <div className="bg-background border border-border rounded-lg shadow-xl p-4 w-64">
+          <h3 className="font-semibold text-foreground mb-3">Google Features</h3>
           
           {/* Theme Selector */}
           <div className="mb-4">
-            <label className="text-sm text-gray-600 mb-2 block">Theme</label>
+            <label className="text-sm text-muted-foreground mb-2 block">Theme</label>
             <div className="flex space-x-2">
               {themes.map((themeOption) => (
                 <button
                   key={themeOption.value}
                   onClick={() => setTheme(themeOption.value)}
                   className={`w-8 h-8 rounded-full ${themeOption.color} border-2 transition-all ${
-                    theme === themeOption.value ? 'border-gray-800 scale-110' : 'border-gray-300'
+                    theme === themeOption.value ? 'border-foreground scale-110' : 'border-border'
                   }`}
                   title={themeOption.name}
                 />
@@ -57,15 +58,15 @@ const FloatingFeatures = () => {
           </div>
 
           {/* Easter Egg Tip */}
-          <div className="mb-4 p-3 bg-yellow-50 rounded-lg">
+          <div className="mb-4 p-3 bg-accent rounded-lg">
             <div className="flex items-center space-x-2 mb-2">
               <Sparkles className="w-4 h-4 text-yellow-600" />
-              <span className="text-sm font-medium text-yellow-800">Pro Tip</span>
+              <span className="text-sm font-medium text-accent-foreground">Pro Tip</span>
             </div>
-            <p className="text-xs text-yellow-700">{easterEggs[currentEasterEgg]}</p>
+            <p className="text-xs text-muted-foreground">{easterEggs[currentEasterEgg]}</p>
             <button
               onClick={() => setCurrentEasterEgg((prev) => (prev + 1) % easterEggs.length)}
-              className="text-xs text-yellow-600 hover:text-yellow-800 mt-1"
+              className="text-xs text-primary hover:text-primary/80 mt-1"
             >
               Next tip →
             </button>
@@ -73,13 +74,13 @@ const FloatingFeatures = () => {
 
           {/* Quick Actions */}
           <div className="space-y-2">
-            <button className="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-accent transition-colors">
               <Heart className="w-4 h-4 text-red-500" />
-              <span className="text-sm text-gray-700">Favorites</span>
+              <span className="text-sm text-foreground">Favorites</span>
             </button>
-            <button className="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="w-full flex items-center space-x-3 p-2 rounded-lg hover:bg-accent transition-colors">
               <Star className="w-4 h-4 text-yellow-500" />
-              <span className="text-sm text-gray-700">Bookmarks</span>
+              <span className="text-sm text-foreground">Bookmarks</span>
             </button>
           </div>
         </div>
