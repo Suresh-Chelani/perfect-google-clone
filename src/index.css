@@ -11,22 +11,22 @@
     --background: 255 255 255;
     --foreground: 32 33 36;
 
-    --card: 255 255 255;
+    --card: 248 249 250;
     --card-foreground: 32 33 36;
 
-    --popover: 255 255 255;
+    --popover: 248 249 250;
     --popover-foreground: 32 33 36;
 
     --primary: 66 133 244;
     --primary-foreground: 255 255 255;
 
-    --secondary: 248 249 250;
+    --secondary: 241 243 244;
     --secondary-foreground: 60 64 67;
 
-    --muted: 248 249 250;
+    --muted: 241 243 244;
     --muted-foreground: 95 99 104;
 
-    --accent: 248 249 250;
+    --accent: 234 237 239;
     --accent-foreground: 32 33 36;
 
     --destructive: 234 67 53;
