@@ -8,8 +8,8 @@ const FloatingFeatures = () => {
   const { theme, setTheme } = useTheme();
 
   const themes = [
-    { name: 'Default', value: 'default' as const, color: 'bg-blue-500' },
-    { name: 'Dark', value: 'dark' as const, color: 'bg-gray-800' },
+    { name: 'Default', value: 'default' as const, color: 'bg-primary' },
+    { name: 'Dark', value: 'dark' as const, color: 'bg-foreground' },
     { name: 'Colorful', value: 'colorful' as const, color: 'bg-gradient-to-r from-purple-500 to-pink-500' },
   ];
 
@@ -23,12 +23,17 @@ const FloatingFeatures = () => {
 
   const [currentEasterEgg, setCurrentEasterEgg] = useState(0);
 
+  const handleThemeChange = (newTheme: typeof theme) => {
+    console.log('Theme button clicked:', newTheme);
+    setTheme(newTheme);
+  };
+
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {/* Main FAB */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 bg-google-blue text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center group"
+        className="w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 flex items-center justify-center group"
       >
         <Settings className={`w-6 h-6 transition-transform duration-300 ${isOpen ? 'rotate-180' : 'group-hover:rotate-90'}`} />
       </button>
@@ -42,14 +47,16 @@ const FloatingFeatures = () => {
           
           {/* Theme Selector */}
           <div className="mb-4">
-            <label className="text-sm text-muted-foreground mb-2 block">Theme</label>
+            <label className="text-sm text-muted-foreground mb-2 block">
+              Theme (Current: {theme})
+            </label>
             <div className="flex space-x-2">
               {themes.map((themeOption) => (
                 <button
                   key={themeOption.value}
-                  onClick={() => setTheme(themeOption.value)}
+                  onClick={() => handleThemeChange(themeOption.value)}
                   className={`w-8 h-8 rounded-full ${themeOption.color} border-2 transition-all ${
-                    theme === themeOption.value ? 'border-foreground scale-110' : 'border-border'
+                    theme === themeOption.value ? 'border-primary scale-110' : 'border-border'
                   }`}
                   title={themeOption.name}
                 />

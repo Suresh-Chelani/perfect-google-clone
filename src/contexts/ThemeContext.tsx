@@ -26,17 +26,31 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState<Theme>('default');
 
   useEffect(() => {
+    console.log('Theme changing to:', theme);
+    
     // Apply theme to document root
     const root = document.documentElement;
-    root.classList.remove('theme-default', 'theme-dark', 'theme-colorful');
-    root.classList.add(`theme-${theme}`);
     
-    // Apply dark class for shadcn components when dark theme is selected
-    if (theme === 'dark') {
+    // Remove all theme classes first
+    root.classList.remove('theme-default', 'theme-dark', 'theme-colorful', 'dark');
+    
+    // Add the new theme class
+    if (theme === 'default') {
+      // For default theme, don't add any theme class
+      console.log('Applied default theme');
+    } else if (theme === 'dark') {
       root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
+      console.log('Applied dark theme');
+    } else if (theme === 'colorful') {
+      root.classList.add('theme-colorful');
+      console.log('Applied colorful theme');
     }
+    
+    // Force a repaint to ensure styles are applied
+    root.style.display = 'none';
+    root.offsetHeight; // Trigger reflow
+    root.style.display = '';
+    
   }, [theme]);
 
   return (
